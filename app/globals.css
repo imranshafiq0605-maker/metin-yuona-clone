@@ -647,7 +647,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translateX(140px);
+  transform: translateX(220px);
 }
 
 .hero-logo-full-image {
