@@ -47,54 +47,48 @@ const footerColumns = [
 export default function HomePage() {
   return (
     <main className="page-shell">
-      <header className="topbar wrapper">
-        <nav className="nav">
-          {menuItems.map((item) => (
-            <a key={item} href="#" className="nav-link">
-              {item}
-            </a>
-          ))}
-        </nav>
+      <header className="topbar header-overlay">
+  <div className="wrapper topbar-inner">
+    <nav className="nav">
+      {menuItems.map((item) => (
+        <a key={item} href="#" className="nav-link">
+          {item}
+        </a>
+      ))}
+    </nav>
 
-        <div className="language-box">
-          <span>LANGUAGE</span>
+    <div className="language-box">
+      <span>LANGUAGE</span>
 
-          <div className="language-dropdown">
-            {languages.map((language) => (
-              <div key={language} className="language-item">
-                <div className="flag-placeholder" />
-                <span>{language}</span>
-              </div>
-            ))}
+      <div className="language-dropdown">
+        {languages.map((language) => (
+          <div key={language} className="language-item">
+            <div className="flag-placeholder" />
+            <span>{language}</span>
           </div>
-        </div>
-      </header>
+        ))}
+      </div>
+    </div>
+  </div>
+</header>
 
-      <section className="hero wrapper">
-        <div className="hero-character image-card" />
+<section className="hero hero-header-full">
+  <div className="hero-header-bg" />
 
-        <div className="hero-branding">
-          <div className="logo-wordmark image-card" />
+  <div className="hero-header-shadow" />
 
-          <div className="stats-row">
-            <div className="stat-box">
-              <div className="stat-icon image-card" />
-              <div>
-                <strong>1 Online Players</strong>
-                <span>(All Channels)</span>
-              </div>
-            </div>
+  <div className="wrapper hero-header-content">
+    <div className="hero-logo-full">
+      <img
+        src="/assets/header/header-logo-png.png"
+        alt="Yuona Header Logo"
+        className="hero-logo-full-image"
+      />
+    </div>
+  </div>
 
-            <div className="stat-box">
-              <div className="stat-icon image-card" />
-              <div>
-                <strong>35 Online Players</strong>
-                <span>(Last 24h)</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  <div className="hero-header-bottom-fade" />
+</section>
 
       <section className="news-video wrapper panel-grid">
         <div className="video-panel image-card">
