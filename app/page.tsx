@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { Locale, siteTranslations } from './lib/translations';
 
-
 const languages = [
   { label: 'Polish', code: 'pl' as const },
   { label: 'English', code: 'en' as const },
@@ -24,8 +23,14 @@ const topGuilds = Array.from({ length: 10 }, (_, index) => ({
   value: '150',
 }));
 
-const classIcons = Array.from({ length: 8 });
-const discordCards = Array.from({ length: 3 });
+const sideIcons = Array.from({ length: 5 });
+const sideIconSrc = '/assets/slider/class-icon.png';
+
+const discordBanners = [
+  '/assets/banners/discord-banner-1.png',
+  '/assets/banners/discord-banner-2.png',
+  '/assets/banners/discord-banner-3.png',
+];
 
 export default function HomePage() {
   const [locale, setLocale] = useState<Locale>('de');
@@ -47,12 +52,7 @@ export default function HomePage() {
     return languages.find((language) => language.code === locale)?.label ?? 'Language';
   }, [locale]);
 
-  const newsTabs = [
-    t.latestNews,
-    t.allNews,
-    t.events,
-    t.updates,
-  ];
+  const newsTabs = [t.latestNews, t.allNews, t.events, t.updates];
 
   useEffect(() => {
     setActiveTab(newsTabs[0]);
@@ -126,112 +126,112 @@ export default function HomePage() {
   return (
     <main className="page-shell">
       <header className="topbar header-overlay">
-  <div className="wrapper topbar-inner">
-    <div className="mobile-header-bar">
-      <Link href="/" className="mobile-brand">
-        YUONA
-      </Link>
-
-      <button
-        type="button"
-        className="mobile-menu-toggle"
-        onClick={() => setMobileMenuOpen((prev) => !prev)}
-        aria-label="Open navigation"
-        aria-expanded={mobileMenuOpen}
-      >
-        {mobileMenuOpen ? '✕' : '☰'}
-      </button>
-    </div>
-
-    {mobileMenuOpen && (
-      <div className="mobile-menu">
-        <nav className="mobile-nav" aria-label="Mobile navigation">
-          {menuItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="mobile-nav-link"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {item.label}
+        <div className="wrapper topbar-inner">
+          <div className="mobile-header-bar">
+            <Link href="/" className="mobile-brand">
+              YUONA
             </Link>
-          ))}
-        </nav>
 
-        <div className="mobile-language-block">
-          <button
-            type="button"
-            className={`language-box mobile-language-button ${languageOpen ? 'is-open' : ''}`}
-            onClick={() => setLanguageOpen((prev) => !prev)}
-            aria-expanded={languageOpen}
-            aria-label="Select language"
-          >
-            <span>{selectedLanguageLabel}</span>
-            <span className="language-caret">{languageOpen ? '▲' : '▼'}</span>
-          </button>
+            <button
+              type="button"
+              className="mobile-menu-toggle"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              aria-label="Open navigation"
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? '✕' : '☰'}
+            </button>
+          </div>
 
-          {languageOpen && (
-            <div className="mobile-language-dropdown">
-              {languages.map((language) => (
+          {mobileMenuOpen && (
+            <div className="mobile-menu">
+              <nav className="mobile-nav" aria-label="Mobile navigation">
+                {menuItems.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="mobile-nav-link"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="mobile-language-block">
                 <button
-                  key={language.code}
                   type="button"
-                  className="language-item"
-                  onClick={() => {
-                    handleLanguageSelect(language.code);
-                    setMobileMenuOpen(false);
-                  }}
+                  className={`language-box mobile-language-button ${languageOpen ? 'is-open' : ''}`}
+                  onClick={() => setLanguageOpen((prev) => !prev)}
+                  aria-expanded={languageOpen}
+                  aria-label="Select language"
                 >
-                  <div className="flag-placeholder" />
-                  <span>{language.label}</span>
+                  <span>{selectedLanguageLabel}</span>
+                  <span className="language-caret">{languageOpen ? '▲' : '▼'}</span>
                 </button>
-              ))}
+
+                {languageOpen && (
+                  <div className="mobile-language-dropdown">
+                    {languages.map((language) => (
+                      <button
+                        key={language.code}
+                        type="button"
+                        className="language-item"
+                        onClick={() => {
+                          handleLanguageSelect(language.code);
+                          setMobileMenuOpen(false);
+                        }}
+                      >
+                        <div className="flag-placeholder" />
+                        <span>{language.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           )}
-        </div>
-      </div>
-    )}
 
-    <div className="desktop-header">
-      <nav className="nav" aria-label="Main navigation">
-        {menuItems.map((item) => (
-          <Link key={item.label} href={item.href} className="nav-link">
-            {item.label}
-          </Link>
-        ))}
-      </nav>
+          <div className="desktop-header">
+            <nav className="nav" aria-label="Main navigation">
+              {menuItems.map((item) => (
+                <Link key={item.label} href={item.href} className="nav-link">
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
 
-      <div className="language-wrap">
-        <button
-          type="button"
-          className={`language-box ${languageOpen ? 'is-open' : ''}`}
-          onClick={() => setLanguageOpen((prev) => !prev)}
-          aria-expanded={languageOpen}
-          aria-label="Select language"
-        >
-          <span>{selectedLanguageLabel}</span>
-          <span className="language-caret">{languageOpen ? '▲' : '▼'}</span>
-        </button>
-
-        {languageOpen && (
-          <div className="language-dropdown">
-            {languages.map((language) => (
+            <div className="language-wrap">
               <button
-                key={language.code}
                 type="button"
-                className="language-item"
-                onClick={() => handleLanguageSelect(language.code)}
+                className={`language-box ${languageOpen ? 'is-open' : ''}`}
+                onClick={() => setLanguageOpen((prev) => !prev)}
+                aria-expanded={languageOpen}
+                aria-label="Select language"
               >
-                <div className="flag-placeholder" />
-                <span>{language.label}</span>
+                <span>{selectedLanguageLabel}</span>
+                <span className="language-caret">{languageOpen ? '▲' : '▼'}</span>
               </button>
-            ))}
+
+              {languageOpen && (
+                <div className="language-dropdown">
+                  {languages.map((language) => (
+                    <button
+                      key={language.code}
+                      type="button"
+                      className="language-item"
+                      onClick={() => handleLanguageSelect(language.code)}
+                    >
+                      <div className="flag-placeholder" />
+                      <span>{language.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        )}
-      </div>
-    </div>
-  </div>
-</header>
+        </div>
+      </header>
 
       <section className="hero hero-header-full">
         <div className="hero-header-bg" />
@@ -330,7 +330,13 @@ export default function HomePage() {
               ‹
             </button>
 
-            <div className="showcase-char image-card" />
+            <div className="showcase-char">
+              <img
+                src="/assets/slider/showcase-main.png"
+                alt="Showcase Character"
+                className="showcase-char-image"
+              />
+            </div>
 
             <button type="button" className="arrow-btn" aria-label="Next character">
               ›
@@ -338,16 +344,20 @@ export default function HomePage() {
           </div>
 
           <div className="class-icons left">
-            {classIcons.map((_, index) => (
-              <div key={`left-icon-${index}`} className="class-icon image-card" />
-            ))}
-          </div>
+  {sideIcons.map((_, index) => (
+    <div key={`left-icon-${index}`} className="class-icon">
+      <img src={sideIconSrc} alt="" className="class-icon-image" />
+    </div>
+  ))}
+</div>
 
-          <div className="class-icons right">
-            {classIcons.map((_, index) => (
-              <div key={`right-icon-${index}`} className="class-icon image-card" />
-            ))}
-          </div>
+<div className="class-icons right">
+  {sideIcons.map((_, index) => (
+    <div key={`right-icon-${index}`} className="class-icon">
+      <img src={sideIconSrc} alt="" className="class-icon-image" />
+    </div>
+  ))}
+</div>
 
           <div className="showcase-actions">
             <Link href="/maps" className="gold-btn small">
@@ -391,11 +401,14 @@ export default function HomePage() {
       </section>
 
       <section className="discord-strip wrapper">
-        {discordCards.map((_, index) => (
+        {discordBanners.map((banner, index) => (
           <Link
             key={`discord-${index}`}
             href="/discord"
-            className="discord-card image-card"
+            className="discord-card"
+            style={{
+              backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.45), rgba(0,0,0,0.15)), url('${banner}')`,
+            }}
           >
             <div className="discord-copy">
               <span>{t.joinDiscord}</span>
