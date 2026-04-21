@@ -135,7 +135,10 @@ export default function HomePage() {
             <button
               type="button"
               className="mobile-menu-toggle"
-              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              onClick={() => {
+                setMobileMenuOpen((prev) => !prev);
+                setLanguageOpen(false);
+              }}
               aria-label="Open navigation"
               aria-expanded={mobileMenuOpen}
             >
@@ -161,7 +164,7 @@ export default function HomePage() {
               <div className="mobile-language-block">
                 <button
                   type="button"
-                  className={`language-box mobile-language-button ${languageOpen ? 'is-open' : ''}`}
+                  className="language-box mobile-language-button"
                   onClick={() => setLanguageOpen((prev) => !prev)}
                   aria-expanded={languageOpen}
                   aria-label="Select language"
@@ -204,7 +207,7 @@ export default function HomePage() {
             <div className="language-wrap">
               <button
                 type="button"
-                className={`language-box ${languageOpen ? 'is-open' : ''}`}
+                className="language-box"
                 onClick={() => setLanguageOpen((prev) => !prev)}
                 aria-expanded={languageOpen}
                 aria-label="Select language"
@@ -251,7 +254,7 @@ export default function HomePage() {
       </section>
 
       <section className="news-video wrapper panel-grid">
-        <Link href="/trailer" className="video-panel image-card">
+        <Link href="/trailer" className="video-panel">
           <div className="play-button">▶️</div>
         </Link>
 
@@ -272,7 +275,7 @@ export default function HomePage() {
           </div>
 
           <article className="news-article">
-            <div className="news-thumb image-card" />
+            <div className="news-thumb" />
 
             <div className="news-content">
               <p className="news-date">11.08.2021 02:02 AM</p>
@@ -323,41 +326,43 @@ export default function HomePage() {
         </div>
 
         <div className="center-showcase panel-dark">
-          <div className="horn-icon image-card" />
+          <div className="horn-icon" />
 
           <div className="showcase-main">
             <button type="button" className="arrow-btn" aria-label="Previous character">
               ‹
             </button>
 
-            <div className="showcase-char">
-              <img
-                src="/assets/slider/showcase-main.png"
-                alt="Showcase Character"
-                className="showcase-char-image"
-              />
+            <div className="showcase-stage">
+              <div className="class-icons left">
+                {sideIcons.map((_, index) => (
+                  <div key={`left-icon-${index}`} className="class-icon">
+                    <img src={sideIconSrc} alt="" className="class-icon-image" />
+                  </div>
+                ))}
+              </div>
+
+              <div className="showcase-char">
+                <img
+                  src="/assets/slider/showcase-main.png"
+                  alt="Showcase Character"
+                  className="showcase-char-image"
+                />
+              </div>
+
+              <div className="class-icons right">
+                {sideIcons.map((_, index) => (
+                  <div key={`right-icon-${index}`} className="class-icon">
+                    <img src={sideIconSrc} alt="" className="class-icon-image" />
+                  </div>
+                ))}
+              </div>
             </div>
 
             <button type="button" className="arrow-btn" aria-label="Next character">
               ›
             </button>
           </div>
-
-          <div className="class-icons left">
-  {sideIcons.map((_, index) => (
-    <div key={`left-icon-${index}`} className="class-icon">
-      <img src={sideIconSrc} alt="" className="class-icon-image" />
-    </div>
-  ))}
-</div>
-
-<div className="class-icons right">
-  {sideIcons.map((_, index) => (
-    <div key={`right-icon-${index}`} className="class-icon">
-      <img src={sideIconSrc} alt="" className="class-icon-image" />
-    </div>
-  ))}
-</div>
 
           <div className="showcase-actions">
             <Link href="/maps" className="gold-btn small">
