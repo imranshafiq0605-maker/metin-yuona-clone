@@ -1,24 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
-
-const menuItems = [
-  { label: 'HOME', href: '/' },
-  { label: 'DOWNLOAD', href: '/download' },
-  { label: 'RANKINGS', href: '/rankings' },
-  { label: 'REGISTER', href: '/register' },
-  { label: 'DISCORD', href: '/discord' },
-];
+import { useEffect, useMemo, useState } from 'react';
+import { Locale, siteTranslations } from './lib/translations';
 
 const languages = [
-  { label: 'Polish', code: 'pl' },
-  { label: 'English', code: 'en' },
-  { label: 'German', code: 'de' },
-  { label: 'Turkish', code: 'tr' },
+  { label: 'Polish', code: 'pl' as const },
+  { label: 'English', code: 'en' as const },
+  { label: 'German', code: 'de' as const },
+  { label: 'Turkish', code: 'tr' as const },
 ];
-
-const newsTabs = ['LATEST NEWS', 'ALL NEWS', 'EVENTS', 'UPDATES'];
 
 const bestPlayers = Array.from({ length: 10 }, (_, index) => ({
   rank: index + 1,
@@ -35,64 +26,98 @@ const topGuilds = Array.from({ length: 10 }, (_, index) => ({
 const classIcons = Array.from({ length: 8 });
 const discordCards = Array.from({ length: 3 });
 
-const footerColumns = [
-  {
-    title: 'Home',
-    links: [
-      { label: 'TEXT EXAMPLE', href: '/' },
-      { label: 'TEXT EXAMPLE', href: '/' },
-      { label: 'TEXT EXAMPLE', href: '/' },
-    ],
-  },
-  {
-    title: 'Download',
-    links: [
-      { label: 'TEXT EXAMPLE', href: '/download' },
-      { label: 'TEXT EXAMPLE', href: '/download' },
-      { label: 'TEXT EXAMPLE', href: '/download' },
-    ],
-  },
-  {
-    title: 'Register',
-    links: [
-      { label: 'TEXT EXAMPLE', href: '/register' },
-      { label: 'TEXT EXAMPLE', href: '/register' },
-      { label: 'TEXT EXAMPLE', href: '/register' },
-    ],
-  },
-  {
-    title: 'Leaderboard',
-    links: [
-      { label: 'TEXT EXAMPLE', href: '/rankings' },
-      { label: 'TEXT EXAMPLE', href: '/rankings' },
-      { label: 'TEXT EXAMPLE', href: '/rankings' },
-    ],
-  },
-  {
-    title: 'Discord',
-    links: [
-      { label: 'TEXT EXAMPLE', href: '/discord' },
-      { label: 'TEXT EXAMPLE', href: '/discord' },
-      { label: 'TEXT EXAMPLE', href: '/discord' },
-    ],
-  },
-  {
-    title: 'Terms',
-    links: [
-      { label: 'TEXT EXAMPLE', href: '/terms' },
-      { label: 'TEXT EXAMPLE', href: '/terms' },
-      { label: 'TEXT EXAMPLE', href: '/terms' },
-    ],
-  },
-];
-
 export default function HomePage() {
-  const [activeTab, setActiveTab] = useState(newsTabs[0]);
+  const [locale, setLocale] = useState<Locale>('de');
+  const [activeTab, setActiveTab] = useState('LATEST NEWS');
   const [languageOpen, setLanguageOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('LANGUAGE');
 
-  const handleLanguageSelect = (language: string) => {
-    setSelectedLanguage(language.toUpperCase());
+  useEffect(() => {
+    const savedLocale = localStorage.getItem('locale') as Locale | null;
+
+    if (savedLocale && ['de', 'en', 'pl', 'tr'].includes(savedLocale)) {
+      setLocale(savedLocale);
+    }
+  }, []);
+
+  const t = siteTranslations[locale];
+
+  const selectedLanguageLabel = useMemo(() => {
+    return languages.find((language) => language.code === locale)?.label ?? 'Language';
+  }, [locale]);
+
+  const newsTabs = [
+    t.latestNews,
+    t.allNews,
+    t.events,
+    t.updates,
+  ];
+
+  useEffect(() => {
+    setActiveTab(newsTabs[0]);
+  }, [locale]);
+
+  const menuItems = [
+    { label: t.home, href: '/' },
+    { label: t.download, href: '/download' },
+    { label: t.rankings, href: '/rankings' },
+    { label: t.register, href: '/register' },
+    { label: t.discord, href: '/discord' },
+  ];
+
+  const footerColumns = [
+    {
+      title: t.footerHome,
+      links: [
+        { label: 'TEXT EXAMPLE', href: '/' },
+        { label: 'TEXT EXAMPLE', href: '/' },
+        { label: 'TEXT EXAMPLE', href: '/' },
+      ],
+    },
+    {
+      title: t.footerDownload,
+      links: [
+        { label: 'TEXT EXAMPLE', href: '/download' },
+        { label: 'TEXT EXAMPLE', href: '/download' },
+        { label: 'TEXT EXAMPLE', href: '/download' },
+      ],
+    },
+    {
+      title: t.footerRegister,
+      links: [
+        { label: 'TEXT EXAMPLE', href: '/register' },
+        { label: 'TEXT EXAMPLE', href: '/register' },
+        { label: 'TEXT EXAMPLE', href: '/register' },
+      ],
+    },
+    {
+      title: t.footerLeaderboard,
+      links: [
+        { label: 'TEXT EXAMPLE', href: '/rankings' },
+        { label: 'TEXT EXAMPLE', href: '/rankings' },
+        { label: 'TEXT EXAMPLE', href: '/rankings' },
+      ],
+    },
+    {
+      title: t.discord,
+      links: [
+        { label: 'TEXT EXAMPLE', href: '/discord' },
+        { label: 'TEXT EXAMPLE', href: '/discord' },
+        { label: 'TEXT EXAMPLE', href: '/discord' },
+      ],
+    },
+    {
+      title: t.footerTerms,
+      links: [
+        { label: 'TEXT EXAMPLE', href: '/terms' },
+        { label: 'TEXT EXAMPLE', href: '/terms' },
+        { label: 'TEXT EXAMPLE', href: '/terms' },
+      ],
+    },
+  ];
+
+  const handleLanguageSelect = (languageCode: Locale) => {
+    setLocale(languageCode);
+    localStorage.setItem('locale', languageCode);
     setLanguageOpen(false);
   };
 
@@ -116,7 +141,7 @@ export default function HomePage() {
               aria-expanded={languageOpen}
               aria-label="Select language"
             >
-              <span>{selectedLanguage}</span>
+              <span>{selectedLanguageLabel}</span>
               <span className="language-caret">{languageOpen ? '▲' : '▼'}</span>
             </button>
 
@@ -127,7 +152,7 @@ export default function HomePage() {
                     key={language.code}
                     type="button"
                     className="language-item"
-                    onClick={() => handleLanguageSelect(language.label)}
+                    onClick={() => handleLanguageSelect(language.code)}
                   >
                     <div className="flag-placeholder" />
                     <span>{language.label}</span>
@@ -190,7 +215,7 @@ export default function HomePage() {
               </p>
 
               <Link href="/news/server-maintenance" className="gold-btn">
-                READ MORE
+                {t.readMore}
               </Link>
             </div>
           </article>
@@ -199,7 +224,7 @@ export default function HomePage() {
 
       <section className="ranking-area wrapper">
         <div className="ranking-panel panel-dark">
-          <div className="gold-title">BEST PLAYERS</div>
+          <div className="gold-title">{t.bestPlayers}</div>
 
           <div className="table-wrap">
             <table>
@@ -224,7 +249,7 @@ export default function HomePage() {
           </div>
 
           <Link href="/rankings/players" className="panel-link">
-            View Full Ranking
+            {t.viewFullRanking}
           </Link>
         </div>
 
@@ -257,16 +282,16 @@ export default function HomePage() {
 
           <div className="showcase-actions">
             <Link href="/maps" className="gold-btn small">
-              MAPS
+              {t.maps}
             </Link>
             <Link href="/dungeons" className="gold-btn small">
-              DUNGEONS
+              {t.dungeons}
             </Link>
           </div>
         </div>
 
         <div className="ranking-panel panel-dark">
-          <div className="gold-title">TOP GUILDS</div>
+          <div className="gold-title">{t.topGuilds}</div>
 
           <div className="table-wrap">
             <table>
@@ -291,7 +316,7 @@ export default function HomePage() {
           </div>
 
           <Link href="/rankings/guilds" className="panel-link">
-            View Full Ranking
+            {t.viewFullRanking}
           </Link>
         </div>
       </section>
@@ -304,8 +329,8 @@ export default function HomePage() {
             className="discord-card image-card"
           >
             <div className="discord-copy">
-              <span>JOIN TO OUR</span>
-              <strong>DISCORD SERVER</strong>
+              <span>{t.joinDiscord}</span>
+              <strong>{t.discordServer}</strong>
             </div>
 
             <div className="discord-arrow">›</div>
@@ -329,9 +354,7 @@ export default function HomePage() {
         </div>
 
         <div className="footer-logo image-card" />
-        <p className="copyright">
-          All Rights Reserved by Yuona. | Design by AshikaArts.com
-        </p>
+        <p className="copyright">{t.copyright}</p>
       </footer>
     </main>
   );
