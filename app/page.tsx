@@ -1,5 +1,23 @@
-const menuItems = ['HOME', 'DOWNLOAD', 'RANKINGS', 'REGISTER', 'DISCORD'];
-const languages = ['Polish', 'English', 'German', 'Turkish'];
+'use client';
+
+import Link from 'next/link';
+import { useState } from 'react';
+
+const menuItems = [
+  { label: 'HOME', href: '/' },
+  { label: 'DOWNLOAD', href: '/download' },
+  { label: 'RANKINGS', href: '/rankings' },
+  { label: 'REGISTER', href: '/register' },
+  { label: 'DISCORD', href: '/discord' },
+];
+
+const languages = [
+  { label: 'Polish', code: 'pl' },
+  { label: 'English', code: 'en' },
+  { label: 'German', code: 'de' },
+  { label: 'Turkish', code: 'tr' },
+];
+
 const newsTabs = ['LATEST NEWS', 'ALL NEWS', 'EVENTS', 'UPDATES'];
 
 const bestPlayers = Array.from({ length: 10 }, (_, index) => ({
@@ -20,58 +38,103 @@ const discordCards = Array.from({ length: 3 });
 const footerColumns = [
   {
     title: 'Home',
-    links: ['TEXT EXAMPLE', 'TEXT EXAMPLE', 'TEXT EXAMPLE'],
+    links: [
+      { label: 'TEXT EXAMPLE', href: '/' },
+      { label: 'TEXT EXAMPLE', href: '/' },
+      { label: 'TEXT EXAMPLE', href: '/' },
+    ],
   },
   {
     title: 'Download',
-    links: ['TEXT EXAMPLE', 'TEXT EXAMPLE', 'TEXT EXAMPLE'],
+    links: [
+      { label: 'TEXT EXAMPLE', href: '/download' },
+      { label: 'TEXT EXAMPLE', href: '/download' },
+      { label: 'TEXT EXAMPLE', href: '/download' },
+    ],
   },
   {
     title: 'Register',
-    links: ['TEXT EXAMPLE', 'TEXT EXAMPLE', 'TEXT EXAMPLE'],
+    links: [
+      { label: 'TEXT EXAMPLE', href: '/register' },
+      { label: 'TEXT EXAMPLE', href: '/register' },
+      { label: 'TEXT EXAMPLE', href: '/register' },
+    ],
   },
   {
     title: 'Leaderboard',
-    links: ['TEXT EXAMPLE', 'TEXT EXAMPLE', 'TEXT EXAMPLE'],
+    links: [
+      { label: 'TEXT EXAMPLE', href: '/rankings' },
+      { label: 'TEXT EXAMPLE', href: '/rankings' },
+      { label: 'TEXT EXAMPLE', href: '/rankings' },
+    ],
   },
   {
     title: 'Discord',
-    links: ['TEXT EXAMPLE', 'TEXT EXAMPLE', 'TEXT EXAMPLE'],
+    links: [
+      { label: 'TEXT EXAMPLE', href: '/discord' },
+      { label: 'TEXT EXAMPLE', href: '/discord' },
+      { label: 'TEXT EXAMPLE', href: '/discord' },
+    ],
   },
   {
     title: 'Terms',
-    links: ['TEXT EXAMPLE', 'TEXT EXAMPLE', 'TEXT EXAMPLE'],
+    links: [
+      { label: 'TEXT EXAMPLE', href: '/terms' },
+      { label: 'TEXT EXAMPLE', href: '/terms' },
+      { label: 'TEXT EXAMPLE', href: '/terms' },
+    ],
   },
 ];
 
 export default function HomePage() {
+  const [activeTab, setActiveTab] = useState(newsTabs[0]);
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('LANGUAGE');
+
+  const handleLanguageSelect = (language: string) => {
+    setSelectedLanguage(language.toUpperCase());
+    setLanguageOpen(false);
+  };
+
   return (
     <main className="page-shell">
       <header className="topbar header-overlay">
         <div className="wrapper topbar-inner">
-          <div className="nav-wrap">
-            <nav className="nav">
-              {menuItems.map((item) => (
-                <a key={item} href="#" className="nav-link">
-                  {item}
-                </a>
-              ))}
-            </nav>
-          </div>
+          <nav className="nav" aria-label="Main navigation">
+            {menuItems.map((item) => (
+              <Link key={item.label} href={item.href} className="nav-link">
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
           <div className="language-wrap">
-            <div className="language-box">
-              <span>LANGUAGE</span>
+            <button
+              type="button"
+              className={`language-box ${languageOpen ? 'is-open' : ''}`}
+              onClick={() => setLanguageOpen((prev) => !prev)}
+              aria-expanded={languageOpen}
+              aria-label="Select language"
+            >
+              <span>{selectedLanguage}</span>
+              <span className="language-caret">{languageOpen ? '▲' : '▼'}</span>
+            </button>
 
+            {languageOpen && (
               <div className="language-dropdown">
                 {languages.map((language) => (
-                  <div key={language} className="language-item">
+                  <button
+                    key={language.code}
+                    type="button"
+                    className="language-item"
+                    onClick={() => handleLanguageSelect(language.label)}
+                  >
                     <div className="flag-placeholder" />
-                    <span>{language}</span>
-                  </div>
+                    <span>{language.label}</span>
+                  </button>
                 ))}
               </div>
-            </div>
+            )}
           </div>
         </div>
       </header>
@@ -94,18 +157,19 @@ export default function HomePage() {
       </section>
 
       <section className="news-video wrapper panel-grid">
-        <div className="video-panel image-card">
+        <Link href="/trailer" className="video-panel image-card">
           <div className="play-button">▶️</div>
-        </div>
+        </Link>
 
         <div className="news-panel panel-dark">
           <div className="panel-tabs-wrap">
             <div className="panel-tabs">
-              {newsTabs.map((tab, index) => (
+              {newsTabs.map((tab) => (
                 <button
                   key={tab}
                   type="button"
-                  className={`tab-btn ${index === 0 ? 'active' : ''}`}
+                  className={`tab-btn ${activeTab === tab ? 'active' : ''}`}
+                  onClick={() => setActiveTab(tab)}
                 >
                   {tab}
                 </button>
@@ -125,9 +189,9 @@ export default function HomePage() {
                 sed pharetra.
               </p>
 
-              <a href="#" className="gold-btn">
+              <Link href="/news/server-maintenance" className="gold-btn">
                 READ MORE
-              </a>
+              </Link>
             </div>
           </article>
         </div>
@@ -159,22 +223,22 @@ export default function HomePage() {
             </table>
           </div>
 
-          <a href="#" className="panel-link">
+          <Link href="/rankings/players" className="panel-link">
             View Full Ranking
-          </a>
+          </Link>
         </div>
 
         <div className="center-showcase panel-dark">
           <div className="horn-icon image-card" />
 
           <div className="showcase-main">
-            <button type="button" className="arrow-btn">
+            <button type="button" className="arrow-btn" aria-label="Previous character">
               ‹
             </button>
 
             <div className="showcase-char image-card" />
 
-            <button type="button" className="arrow-btn">
+            <button type="button" className="arrow-btn" aria-label="Next character">
               ›
             </button>
           </div>
@@ -192,12 +256,12 @@ export default function HomePage() {
           </div>
 
           <div className="showcase-actions">
-            <a href="#" className="gold-btn small">
+            <Link href="/maps" className="gold-btn small">
               MAPS
-            </a>
-            <a href="#" className="gold-btn small">
+            </Link>
+            <Link href="/dungeons" className="gold-btn small">
               DUNGEONS
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -226,22 +290,26 @@ export default function HomePage() {
             </table>
           </div>
 
-          <a href="#" className="panel-link">
+          <Link href="/rankings/guilds" className="panel-link">
             View Full Ranking
-          </a>
+          </Link>
         </div>
       </section>
 
       <section className="discord-strip wrapper">
         {discordCards.map((_, index) => (
-          <article key={`discord-${index}`} className="discord-card image-card">
+          <Link
+            key={`discord-${index}`}
+            href="/discord"
+            className="discord-card image-card"
+          >
             <div className="discord-copy">
               <span>JOIN TO OUR</span>
               <strong>DISCORD SERVER</strong>
             </div>
 
             <div className="discord-arrow">›</div>
-          </article>
+          </Link>
         ))}
       </section>
 
@@ -252,9 +320,9 @@ export default function HomePage() {
               <h4>{column.title}</h4>
 
               {column.links.map((link, index) => (
-                <a key={`${column.title}-${index}`} href="#">
-                  {link}
-                </a>
+                <Link key={`${column.title}-${index}`} href={link.href}>
+                  {link.label}
+                </Link>
               ))}
             </div>
           ))}
