@@ -20,6 +20,12 @@ export const siteTranslations = {
     updates: 'UPDATES',
     joinDiscord: 'JOIN TO OUR',
     discordServer: 'DISCORD SERVER',
+    footerHome: 'Home',
+    footerDownload: 'Download',
+    footerRegister: 'Register',
+    footerLeaderboard: 'Leaderboard',
+    footerTerms: 'Terms',
+    copyright: 'All Rights Reserved by Yuona. | Design by AshikaArts.com',
   },
   de: {
     language: 'SPRACHE',
@@ -40,6 +46,12 @@ export const siteTranslations = {
     updates: 'UPDATES',
     joinDiscord: 'KOMM AUF UNSEREN',
     discordServer: 'DISCORD SERVER',
+    footerHome: 'Start',
+    footerDownload: 'Download',
+    footerRegister: 'Registrieren',
+    footerLeaderboard: 'Rangliste',
+    footerTerms: 'Rechtliches',
+    copyright: 'Alle Rechte vorbehalten von Yuona. | Design von AshikaArts.com',
   },
   pl: {
     language: 'JĘZYK',
@@ -60,6 +72,12 @@ export const siteTranslations = {
     updates: 'AKTUALIZACJE',
     joinDiscord: 'DOŁĄCZ DO NASZEGO',
     discordServer: 'SERWERA DISCORD',
+    footerHome: 'Strona główna',
+    footerDownload: 'Pobierz',
+    footerRegister: 'Rejestracja',
+    footerLeaderboard: 'Ranking',
+    footerTerms: 'Regulamin',
+    copyright: 'Wszelkie prawa zastrzeżone przez Yuona. | Projekt: AshikaArts.com',
   },
   tr: {
     language: 'DİL',
@@ -80,5 +98,36 @@ export const siteTranslations = {
     updates: 'GÜNCELLEMELER',
     joinDiscord: 'BİZİM',
     discordServer: 'DISCORD SUNUCUMUZA KATIL',
+    footerHome: 'Ana Sayfa',
+    footerDownload: 'İndir',
+    footerRegister: 'Kayıt Ol',
+    footerLeaderboard: 'Sıralama',
+    footerTerms: 'Şartlar',
+    copyright: 'Tüm hakları Yuona’ya aittir. | Tasarım: AshikaArts.com',
   },
-};
+} satisfies Record<Locale, {
+  language: string;
+  home: string;
+  download: string;
+  rankings: string;
+  register: string;
+  discord: string;
+  maps: string;
+  dungeons: string;
+  readMore: string;
+  viewFullRanking: string;
+  bestPlayers: string;
+  topGuilds: string;
+  latestNews: string;
+  allNews: string;
+  events: string;
+  updates: string;
+  joinDiscord: string;
+  discordServer: string;
+  footerHome: string;
+  footerDownload: string;
+  footerRegister: string;
+  footerLeaderboard: string;
+  footerTerms: string;
+  copyright: string;
+}>;
