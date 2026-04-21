@@ -1,5 +1,5 @@
 const menuItems = ['HOME', 'DOWNLOAD', 'RANKINGS', 'REGISTER', 'DISCORD'];
-const languages = ['Polish', 'English', 'Germany', 'Turkish'];
+const languages = ['Polish', 'English', 'German', 'Turkish'];
 const newsTabs = ['LATEST NEWS', 'ALL NEWS', 'EVENTS', 'UPDATES'];
 
 const bestPlayers = Array.from({ length: 10 }, (_, index) => ({
@@ -48,64 +48,69 @@ export default function HomePage() {
   return (
     <main className="page-shell">
       <header className="topbar header-overlay">
-  <div className="wrapper topbar-inner">
-    <nav className="nav">
-      {menuItems.map((item) => (
-        <a key={item} href="#" className="nav-link">
-          {item}
-        </a>
-      ))}
-    </nav>
-
-    <div className="language-box">
-      <span>LANGUAGE</span>
-
-      <div className="language-dropdown">
-        {languages.map((language) => (
-          <div key={language} className="language-item">
-            <div className="flag-placeholder" />
-            <span>{language}</span>
+        <div className="wrapper topbar-inner">
+          <div className="nav-wrap">
+            <nav className="nav">
+              {menuItems.map((item) => (
+                <a key={item} href="#" className="nav-link">
+                  {item}
+                </a>
+              ))}
+            </nav>
           </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</header>
 
-<section className="hero hero-header-full">
-  <div className="hero-header-bg" />
+          <div className="language-wrap">
+            <div className="language-box">
+              <span>LANGUAGE</span>
 
-  <div className="hero-header-shadow" />
+              <div className="language-dropdown">
+                {languages.map((language) => (
+                  <div key={language} className="language-item">
+                    <div className="flag-placeholder" />
+                    <span>{language}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
 
-  <div className="wrapper hero-header-content">
-    <div className="hero-logo-full">
-      <img
-        src="/assets/header/header-logo-png.png"
-        alt="Yuona Header Logo"
-        className="hero-logo-full-image"
-      />
-    </div>
-  </div>
+      <section className="hero hero-header-full">
+        <div className="hero-header-bg" />
+        <div className="hero-header-shadow" />
 
-  <div className="hero-header-bottom-fade" />
-</section>
+        <div className="wrapper hero-header-content">
+          <div className="hero-logo-full">
+            <img
+              src="/assets/header/header-logo-png.png"
+              alt="Yuona Header Logo"
+              className="hero-logo-full-image"
+            />
+          </div>
+        </div>
+
+        <div className="hero-header-bottom-fade" />
+      </section>
 
       <section className="news-video wrapper panel-grid">
         <div className="video-panel image-card">
-          <div className="play-button">▶</div>
+          <div className="play-button">▶️</div>
         </div>
 
         <div className="news-panel panel-dark">
-          <div className="panel-tabs">
-            {newsTabs.map((tab, index) => (
-              <button
-                key={tab}
-                type="button"
-                className={`tab-btn ${index === 0 ? 'active' : ''}`}
-              >
-                {tab}
-              </button>
-            ))}
+          <div className="panel-tabs-wrap">
+            <div className="panel-tabs">
+              {newsTabs.map((tab, index) => (
+                <button
+                  key={tab}
+                  type="button"
+                  className={`tab-btn ${index === 0 ? 'active' : ''}`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
           </div>
 
           <article className="news-article">
@@ -132,25 +137,27 @@ export default function HomePage() {
         <div className="ranking-panel panel-dark">
           <div className="gold-title">BEST PLAYERS</div>
 
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>PLAYERNAMES</th>
-                <th>LvL</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {bestPlayers.map((player) => (
-                <tr key={`player-${player.rank}`}>
-                  <td>{player.rank}.</td>
-                  <td>{player.name}</td>
-                  <td>{player.value}</td>
+          <div className="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>PLAYERNAMES</th>
+                  <th>LvL</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+
+              <tbody>
+                {bestPlayers.map((player) => (
+                  <tr key={`player-${player.rank}`}>
+                    <td>{player.rank}.</td>
+                    <td>{player.name}</td>
+                    <td>{player.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           <a href="#" className="panel-link">
             View Full Ranking
@@ -197,25 +204,27 @@ export default function HomePage() {
         <div className="ranking-panel panel-dark">
           <div className="gold-title">TOP GUILDS</div>
 
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>GUILDNAMES</th>
-                <th>POINTS</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {topGuilds.map((guild) => (
-                <tr key={`guild-${guild.rank}`}>
-                  <td>{guild.rank}.</td>
-                  <td>{guild.name}</td>
-                  <td>{guild.value}</td>
+          <div className="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>GUILDNAMES</th>
+                  <th>POINTS</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+
+              <tbody>
+                {topGuilds.map((guild) => (
+                  <tr key={`guild-${guild.rank}`}>
+                    <td>{guild.rank}.</td>
+                    <td>{guild.name}</td>
+                    <td>{guild.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           <a href="#" className="panel-link">
             View Full Ranking

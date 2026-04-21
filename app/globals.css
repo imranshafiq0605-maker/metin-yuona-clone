@@ -241,8 +241,16 @@ button {
 
 .panel-tabs {
   display: flex;
-  gap: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 18px;
+}
+.tab-btn {
+  background: transparent;
+  color: #d0c7ba;
+  border: 0;
+  padding: 6px 10px;
+  font-weight: 700;
 }
 
 .tab-btn {
@@ -631,23 +639,27 @@ button {
     linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent 24%, transparent 72%, rgba(0, 0, 0, 0.35));
 }
 
+.hero-header-full {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
 .hero-header-content {
   position: relative;
   z-index: 4;
-  min-height: 980px;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 120px;
   padding-bottom: 220px;
 }
-
-.hero-logo-full {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: translateX(480px);
+@media (min-width: 1025px) {
+  .hero-logo-full {
+    transform: translateX(480px);
+  }
 }
 
 .hero-logo-full-image {
@@ -733,5 +745,235 @@ button {
 
   .news-video {
     margin-top: -40px;
+  }
+}
+.nav-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.language-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.panel-tabs-wrap {
+  width: 100%;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.ranking-panel table {
+  width: 100%;
+  min-width: 260px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+@media (max-width: 1024px) {
+  .hero-header-full {
+    min-height: 760px;
+  }
+
+  .hero-header-content {
+    min-height: 760px;
+    padding-top: 120px;
+    padding-bottom: 170px;
+  }
+
+  .hero-logo-full-image {
+    width: min(500px, 76vw);
+  }
+
+  .news-video {
+    margin-top: -80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .topbar-inner {
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 0;
+  }
+
+  .nav-link {
+    padding: 0 12px;
+    font-size: 12px;
+    line-height: 38px;
+  }
+
+  .language-wrap {
+    width: 100%;
+  }
+
+  .language-box {
+    width: 100%;
+    max-width: 220px;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .language-dropdown {
+    position: static;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .hero-header-full,
+  .hero-header-content {
+    min-height: 70svh;
+  }
+
+  .hero-header-content {
+    padding-top: 100px;
+    padding-bottom: 120px;
+  }
+
+  .hero-logo-full-image {
+    width: min(390px, 88vw);
+  }
+
+  .hero-header-bottom-fade {
+    height: 220px;
+  }
+
+  .news-video {
+    margin-top: -40px;
+  }
+
+  .panel-tabs {
+    gap: 10px;
+  }
+
+  .tab-btn {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  .news-panel {
+    padding: 14px;
+  }
+
+  .news-article {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .news-thumb {
+    width: 100%;
+    max-width: 160px;
+  }
+
+  .news-article h3 {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .news-article p {
+    font-size: 14px;
+  }
+
+  .ranking-area {
+    grid-template-columns: 1fr;
+  }
+
+  .center-showcase {
+    order: -1;
+    min-height: auto;
+    padding: 40px 16px 20px;
+  }
+
+  .showcase-main {
+    gap: 10px;
+    min-height: auto;
+  }
+
+  .showcase-char {
+    width: 180px;
+    height: 220px;
+  }
+
+  .arrow-btn {
+    font-size: 34px;
+  }
+
+  .horn-icon {
+    width: 110px;
+    height: 60px;
+  }
+
+  .class-icons {
+    display: none;
+  }
+
+  .showcase-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .discord-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .discord-card {
+    min-height: 110px;
+  }
+
+  .discord-copy {
+    top: 18px;
+    right: 16px;
+  }
+
+  .discord-copy span {
+    font-size: 12px;
+  }
+
+  .discord-copy strong {
+    font-size: 20px;
+  }
+
+  .discord-arrow {
+    right: 14px;
+    bottom: 10px;
+    font-size: 32px;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  .wrapper {
+    width: min(1120px, calc(100vw - 20px));
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-logo {
+    width: 180px;
+    height: 60px;
+  }
+
+  .copyright {
+    font-size: 12px;
+    padding: 0 12px;
   }
 }
