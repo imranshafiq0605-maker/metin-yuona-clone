@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { Locale, siteTranslations } from './lib/translations';
 
+
 const languages = [
   { label: 'Polish', code: 'pl' as const },
   { label: 'English', code: 'en' as const },
@@ -30,6 +31,7 @@ export default function HomePage() {
   const [locale, setLocale] = useState<Locale>('de');
   const [activeTab, setActiveTab] = useState('LATEST NEWS');
   const [languageOpen, setLanguageOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const savedLocale = localStorage.getItem('locale') as Locale | null;
@@ -124,45 +126,112 @@ export default function HomePage() {
   return (
     <main className="page-shell">
       <header className="topbar header-overlay">
-        <div className="wrapper topbar-inner">
-          <nav className="nav" aria-label="Main navigation">
-            {menuItems.map((item) => (
-              <Link key={item.label} href={item.href} className="nav-link">
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+  <div className="wrapper topbar-inner">
+    <div className="mobile-header-bar">
+      <Link href="/" className="mobile-brand">
+        YUONA
+      </Link>
 
-          <div className="language-wrap">
-            <button
-              type="button"
-              className={`language-box ${languageOpen ? 'is-open' : ''}`}
-              onClick={() => setLanguageOpen((prev) => !prev)}
-              aria-expanded={languageOpen}
-              aria-label="Select language"
+      <button
+        type="button"
+        className="mobile-menu-toggle"
+        onClick={() => setMobileMenuOpen((prev) => !prev)}
+        aria-label="Open navigation"
+        aria-expanded={mobileMenuOpen}
+      >
+        {mobileMenuOpen ? '✕' : '☰'}
+      </button>
+    </div>
+
+    {mobileMenuOpen && (
+      <div className="mobile-menu">
+        <nav className="mobile-nav" aria-label="Mobile navigation">
+          {menuItems.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              className="mobile-nav-link"
+              onClick={() => setMobileMenuOpen(false)}
             >
-              <span>{selectedLanguageLabel}</span>
-              <span className="language-caret">{languageOpen ? '▲' : '▼'}</span>
-            </button>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-            {languageOpen && (
-              <div className="language-dropdown">
-                {languages.map((language) => (
-                  <button
-                    key={language.code}
-                    type="button"
-                    className="language-item"
-                    onClick={() => handleLanguageSelect(language.code)}
-                  >
-                    <div className="flag-placeholder" />
-                    <span>{language.label}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+        <div className="mobile-language-block">
+          <button
+            type="button"
+            className={`language-box mobile-language-button ${languageOpen ? 'is-open' : ''}`}
+            onClick={() => setLanguageOpen((prev) => !prev)}
+            aria-expanded={languageOpen}
+            aria-label="Select language"
+          >
+            <span>{selectedLanguageLabel}</span>
+            <span className="language-caret">{languageOpen ? '▲' : '▼'}</span>
+          </button>
+
+          {languageOpen && (
+            <div className="mobile-language-dropdown">
+              {languages.map((language) => (
+                <button
+                  key={language.code}
+                  type="button"
+                  className="language-item"
+                  onClick={() => {
+                    handleLanguageSelect(language.code);
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  <div className="flag-placeholder" />
+                  <span>{language.label}</span>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
-      </header>
+      </div>
+    )}
+
+    <div className="desktop-header">
+      <nav className="nav" aria-label="Main navigation">
+        {menuItems.map((item) => (
+          <Link key={item.label} href={item.href} className="nav-link">
+            {item.label}
+          </Link>
+        ))}
+      </nav>
+
+      <div className="language-wrap">
+        <button
+          type="button"
+          className={`language-box ${languageOpen ? 'is-open' : ''}`}
+          onClick={() => setLanguageOpen((prev) => !prev)}
+          aria-expanded={languageOpen}
+          aria-label="Select language"
+        >
+          <span>{selectedLanguageLabel}</span>
+          <span className="language-caret">{languageOpen ? '▲' : '▼'}</span>
+        </button>
+
+        {languageOpen && (
+          <div className="language-dropdown">
+            {languages.map((language) => (
+              <button
+                key={language.code}
+                type="button"
+                className="language-item"
+                onClick={() => handleLanguageSelect(language.code)}
+              >
+                <div className="flag-placeholder" />
+                <span>{language.label}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</header>
 
       <section className="hero hero-header-full">
         <div className="hero-header-bg" />

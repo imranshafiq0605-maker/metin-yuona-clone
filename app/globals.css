@@ -1314,3 +1314,279 @@ button {
     padding: 0 12px;
   }
 }
+.mobile-header-bar {
+  display: none;
+}
+
+.desktop-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+}
+
+.mobile-brand {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #f7e9c0;
+}
+
+.mobile-menu-toggle {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.42);
+  color: #fff;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-nav-link {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+}
+
+.mobile-language-block {
+  margin-top: 14px;
+}
+
+.mobile-language-button {
+  width: 100%;
+  max-width: none;
+}
+
+.mobile-language-dropdown {
+  margin-top: 10px;
+  padding: 8px;
+  background: rgba(10, 10, 10, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+@media (max-width: 768px) {
+  .wrapper {
+    width: min(1120px, calc(100vw - 24px));
+  }
+
+  .topbar {
+    height: auto;
+    padding: 8px 0 10px;
+  }
+
+  .header-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.94), rgba(0, 0, 0, 0.24));
+  }
+
+  .topbar-inner {
+    min-height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 10px;
+    padding-top: 6px;
+    padding-bottom: 4px;
+  }
+
+  .desktop-header {
+    display: none;
+  }
+
+  .mobile-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .mobile-menu {
+    display: block;
+    padding: 6px 0 4px;
+  }
+
+  .language-item {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  .hero-header-full {
+    min-height: 540px;
+  }
+
+  .hero-header-content {
+    min-height: 540px;
+    padding-top: 120px;
+    padding-bottom: 50px;
+    align-items: flex-start;
+  }
+
+  .hero-logo-full {
+    transform: none;
+    justify-content: center;
+  }
+
+  .hero-logo-full-image {
+    width: min(260px, 68vw);
+  }
+
+  .hero-header-bottom-fade {
+    height: 120px;
+  }
+
+  .panel-grid {
+    margin-top: -8px;
+    gap: 14px;
+  }
+
+  .panel-tabs {
+    gap: 10px;
+  }
+
+  .tab-btn {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  .news-panel {
+    padding: 14px;
+  }
+
+  .news-article {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .news-thumb {
+    width: 100%;
+    max-width: 160px;
+  }
+
+  .news-article h3 {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .news-article p {
+    font-size: 14px;
+  }
+
+  .ranking-area {
+    grid-template-columns: 1fr;
+  }
+
+  .center-showcase {
+    min-height: auto;
+    padding: 40px 16px 20px;
+  }
+
+  .showcase-main {
+    gap: 10px;
+    min-height: auto;
+  }
+
+  .showcase-char {
+    width: 180px;
+    height: 220px;
+  }
+
+  .arrow-btn {
+    font-size: 34px;
+  }
+
+  .horn-icon {
+    width: 110px;
+    height: 60px;
+  }
+
+  .class-icons {
+    display: none;
+  }
+
+  .showcase-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .discord-card {
+    min-height: 110px;
+  }
+
+  .discord-copy {
+    top: 18px;
+    right: 16px;
+  }
+
+  .discord-copy span {
+    font-size: 12px;
+  }
+
+  .discord-copy strong {
+    font-size: 20px;
+  }
+
+  .discord-arrow {
+    right: 14px;
+    bottom: 10px;
+    font-size: 32px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .wrapper {
+    width: calc(100vw - 20px);
+  }
+
+  .mobile-brand {
+    font-size: 18px;
+  }
+
+  .mobile-menu-toggle {
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+  }
+
+  .hero-header-full {
+    min-height: 500px;
+  }
+
+  .hero-header-content {
+    min-height: 500px;
+    padding-top: 112px;
+    padding-bottom: 44px;
+  }
+
+  .hero-logo-full-image {
+    width: min(235px, 66vw);
+  }
+
+  .footer-logo {
+    width: 180px;
+    height: 60px;
+  }
+
+  .copyright {
+    font-size: 12px;
+    padding: 0 12px;
+  }
+}
